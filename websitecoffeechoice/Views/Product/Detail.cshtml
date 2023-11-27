@@ -1,0 +1,125 @@
+﻿@model websitecoffeechoice.Models.SanPham
+@{
+    ViewBag.Title = "Detail";
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        // liên kết sự kiện "click" với phần tử có id "addtocart". Khi người dùng nhấp vào phần tử này (thường là một nút thêm vào giỏ hàng), mã trong hàm sẽ được thực thi.
+        $("#addtocart").click(function () {
+            var model = {};
+            //lấy id sản phẩm
+            model.id = @Model.MaSP;
+            // lấy số lượng đặt hàng
+            model.Quantity = $("#idQuantity").val();
+            debugger;
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("AddToCart", "GioHang")',
+                // Chuyển đổi đối tượng "model" thành chuỗi JSON để gửi dữ liệu sản phẩm cần thêm vào giỏ hàng
+                data: JSON.stringify(model),
+                // Xác định kiểu dữ liệu trả về từ yêu cầu là JSON.
+                dataType: "json",
+                //Xác định kiểu dữ liệu được gửi đi là JSON.
+                contentType: "application/json; charset=utf-8",
+                //khi thêm thành công biến CartCount được thêm vào 
+                success: function () {
+                    alert("Thêm giỏ hàng thành công!")
+                    $('#CartCount').text(@Session["count"] + 1);
+                },
+
+                //lỗi khi thêm vào giỏ hàng không được
+                error: function () {
+                    alert("Lỗi trong khi thêm vào giỏ hàng!");
+                }
+            });
+            return false;
+        });
+    });
+</script>
+
+<div style="text-align:center; font-size:150%; color:orange">Vui lòng chọn món ăn!</div>
+
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-content bg-white padding-y">
+    <div class="container">
+
+        <div class="card mb-3">
+            <div class="card-body">
+                <ol class="breadcrumb float-left">
+                    <li class="btn btn-primary rounded-pill" style="color:white"><a href="~/Home/Index"> << Trở lại</a></li>
+
+
+                </ol>
+            </div> <!-- card-body .// -->
+        </div> <!-- card.// -->
+        <!-- ============================ ITEM DETAIL ======================== -->
+        <div class="row">
+            <aside class="col-md-6">
+                <div class="card">
+                    <article class="gallery-wrap">
+                        <div class="img-big-wrap">
+                            <div> <a href="#"><img src="~/Content/images/items/@Model.Anh"></a></div>
+                        </div> <!-- slider-product.// -->
+                        <!-- slider-nav.// -->
+                    </article> <!-- gallery-wrap .end// -->
+                </div> <!-- card.// -->
+            </aside>
+            <main class="col-md-6">
+                <article class="product-info-aside">
+
+                    Tên món ăn: <h2 class="title mt-3">@Model.TenSP </h2>
+
+                    <div class="rating-wrap my-3">
+                        <ul class="rating-stars">
+                            <li style="width:80%" class="stars-active">
+                                <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </li>
+                            <li>
+                                <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </li>
+                        </ul>
+                        <small class="label-rating text-muted">132 reviews</small>
+                        <small class="label-rating text-success"> <i class="fa fa-clipboard-check"></i> 154 orders </small>
+                    </div> <!-- rating-wrap.// -->
+
+                    <div class="mb-3">
+                        Giá: <var class="price h4">@Model.Gia</var>
+                        <span class="text-muted">VNĐ</span>
+                    </div> <!-- price-detail-wrap .// -->
+
+                    <p>
+                        Nhận xét: @Model.GhiChu
+                    </p>
+
+
+
+                    <div class="form-row  mt-4">
+                        <div class="form-group col-md flex-grow-0">
+                            <div class="input-group mb-3 input-spinner">
+                                <!--ipQuantity -->
+                                <input type="number" id="idQuantity" value="1" style="width:150%;border-radius:5%">
+                            </div>
+                        </div> <!-- col.// -->
+                        <div class="form-group col-md">
+                            <!--addtocart được đặt ở trên javascript -->
+                            <a href="#" id="addtocart" class="btn  btn-primary">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span class="text" h>+Thêm vào giỏ hàng</span>
+                            </a>
+                        </div> <!-- col.// -->
+                    </div> <!-- row.// -->
+
+                </article> <!-- product-info-aside .// -->
+            </main> <!-- col.// -->
+        </div> <!-- row.// -->
+        <!-- ================ ITEM DETAIL END .// ================= -->
+
+
+    </div> <!-- container .//  -->
+</section>
+

@@ -1,0 +1,288 @@
+﻿<!--Khai bao de su dung du lieu loaiSP-->
+@model websitecoffeechoice.Models.HomeModel
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="container">
+    <!-- ========================= SECTION MAIN  ========================= -->
+    <section class="section-main padding-y">
+        <main class="card">
+            <div class="card-body">
+
+                <div class="row">
+                    <aside class="col-lg col-md-3 flex-lg-grow-0">
+                        <h6>Danh mục món ăn</h6>
+                        <nav class="nav-home-aside">
+                            <ul class="menu-category">
+                                <!--Tao vong lap de lay du lieu trong bang LoaiSP o database-->
+                                @foreach (var item in Model.ListLoaiSP)
+                                {
+                                    <li>
+
+                                        <!--LoaiSP đầu tiên tên của hàm nằm trong file LoaiSPController, LoaiSP thứ hai là tên controller  -->
+                                        @Html.ActionLink(item.TenLoaiSP, "LoaiSP", "LoaiSP", new { @Id = item.MaLoaiSP }, null)
+                                    </li>
+                                }
+
+
+                            </ul>
+                        </nav>
+                    </aside> <!-- col.// -->
+                    <div class="col-md-9 col-xl-7 col-lg-7">
+
+                        <!-- ================== COMPONENT SLIDER  BOOTSTRAP  ==================  -->
+                        <div id="carousel1_indicator" class="slider-home-banner carousel slide" data-ride="carousel">
+                            <ol class="carousel-indicators">
+                                <li data-target="#carousel1_indicator" data-slide-to="0" class="active"></li>
+                                <li data-target="#carousel1_indicator" data-slide-to="1"></li>
+                                <li data-target="#carousel1_indicator" data-slide-to="2"></li>
+                                <li data-target="#carousel1_indicator" data-slide-to="3"></li>
+                                <li data-target="#carousel1_indicator" data-slide-to="4"></li>
+                            </ol>
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+
+                                    <img src="~/Content/images/banners/1.jpg" alt="First slide">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="~/Content/images/banners/2.jpg" alt="Second slide">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="~/Content/images/banners/3.jpg" alt="Third slide">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="~/Content/images/banners/4.jpg" alt="Forth slide">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="~/Content/images/banners/5.jpg" alt="Fifth slide">
+                                </div>
+                            </div>
+                            <a class="carousel-control-prev" href="#carousel1_indicator" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carousel1_indicator" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
+                        <!-- ==================  COMPONENT SLIDER BOOTSTRAP end.// ==================  .// -->
+
+                    </div> <!-- col.// -->
+                    <div class="col-md d-none d-lg-block flex-grow-1">
+                        <aside class="special-home-right">
+                            <h6 class="bg-blue text-center text-white mb-0 p-2">Món ăn thịnh hành</h6>
+
+                            @foreach (var item in Model.ListSanPham.Where(n => n.MaLoaiSP == 2).Take(3))
+                            {
+                                <div class="card-banner border-bottom">
+                                    <div class="py-3" style="width:80%">
+                                        <h6 class="card-title">@item.TenSP</h6>
+
+                                     <a href="@Url.Action("Detail","Product",new {Id=item.MaSP })" class="btn btn-secondary btn-sm" style="text-align:left"> Mua ngay! </a>
+
+                                    </div>
+                                  
+                                    <img src="~/Content/images/items/@item.Anh" height="80" class="img-bg">
+
+                                </div>
+                            }
+
+
+
+
+                        </aside>
+                    </div> <!-- col.// -->
+                </div> <!-- row.// -->
+
+            </div> <!-- card-body.// -->
+        </main> <!-- card.// -->
+
+    </section>
+    <!-- ========================= SECTION MAIN END// ========================= -->
+    <!-- =============== SECTION DEAL =============== -->
+   
+    <!-- =============== SECTION DEAL // END =============== -->
+    <!-- =============== SECTION 1 =============== -->
+    <section class="padding-bottom">
+        <header class="section-heading heading-line">
+            <h4 class="title-section text-uppercase">Đồ ăn</h4>
+        </header>
+
+        <div class="card card-home-category">
+            <div class="row no-gutters">
+                <div class="col-md-3">
+
+                    <div class="home-category-banner bg-light-orange">
+                        <h5 class="title">Bánh mì phô mai</h5>
+                        <p>
+                            Một món ăn truyền thống và phổ biến trong nhiều nền văn hóa. Bánh mì thơm ngon, mềm mịn được kẹp đầy đặn với phô mai thơm phức và gia vị đặc trưng.
+                            Một sự kết hợp tuyệt vời giữa vị ngọt, mặn và chua.
+                        </p>
+                       
+                        @foreach (var item in Model.ListLoaiSP.Where(n => n.MaLoaiSP == 2))
+                        {
+                           
+
+                                <!--LoaiSP đầu tiên tên của hàm nằm trong file LoaiSPController, LoaiSP thứ hai là tên controller  -->
+                                <a href="@Url.Action("LoaiSP", "LoaiSP", new { @Id = item.MaLoaiSP })" class="btn btn-outline-primary rounded-pill">Đặt hàng ngay!</a>
+                            
+                        }
+                        <img src="~/Content/images/items/banhmi.jpg" class="img-bg">
+                    </div>
+
+                </div><!-- col.// -->
+                <div class="col-md-9">
+                    <ul class="row no-gutters bordered-cols">
+                        @foreach (var item in Model.ListSanPham.Where(n => n.MaLoaiSP == 2).Take(4))
+                        {
+                            <li class="col-6 col-lg-3 col-md-4">
+                                <a href="#" class="item">
+                                    <div class="card-body">
+                                        <figure class="card-product-grid card-sm">
+                                            <!--Tạo đường dẫn lấy id sản phẩm để sang trang detail-->
+                                            <a href="@Url.Action("Detail","Product",new {Id=item.MaSP })" class="img-wrap">
+                                                <img src="~/Content/images/items/@item.Anh">
+                                            </a>
+                                            <div class="text-wrap p-3">
+                                                <a href="@Url.Action("Detail","Product",new {Id=item.MaSP })" class="title">@item.TenSP</a>
+                                              
+                                                <div class="price mt-1">@item.Gia VNĐ</div>
+                                                <a href="@Url.Action("Detail","Product",new {Id=item.MaSP })" class="btn btn-secondary btn-sm"> Mua ngay! </a>
+
+                                            </div>
+                                        </figure>
+                                    </div>
+                                </a>
+                            </li>
+                        }
+
+
+                    </ul>
+                </div> <!-- col.// -->
+            </div> <!-- row.// -->
+        </div> <!-- card.// -->
+    </section>
+    <div class="col-md-9">
+        <ul class="row no-gutters bordered-cols">
+            @foreach (var item in Model.ListSanPham.Where(n => n.MaLoaiSP == 2))
+            {
+                <li class="col-6 col-lg-3 col-md-4">
+                    <a href="#" class="item">
+                        <div class="card-body">
+                            <figure class="card-product-grid card-sm">
+                                <!--Tạo đường dẫn lấy id sản phẩm để sang trang detail-->
+                                <a href="@Url.Action("Detail","Product",new {Id=item.MaSP })" class="img-wrap">
+                                    <img src="~/Content/images/items/@item.Anh">
+                                </a>
+                                <div class="text-wrap p-3">
+                                    <a href="@Url.Action("Detail","Product",new {Id=item.MaSP })" class="title">@item.TenSP</a>
+                                   
+                                    <div class="price mt-1">@item.Gia VNĐ</div>
+                                    <a href="@Url.Action("Detail","Product",new {Id=item.MaSP })" class="btn btn-secondary btn-sm"> Mua ngay! </a>
+
+                                </div>
+                            </figure>
+                        </div>
+                    </a>
+                </li>
+            }
+
+
+        </ul>
+    </div> <!-- col.// -->
+    <!-- =============== SECTION 1 END =============== -->
+    <!-- =============== SECTION 2 =============== -->
+    <section class="padding-bottom">
+        <header class="section-heading heading-line">
+            <h4 class="title-section text-uppercase">Đồ uống</h4>
+        </header>
+
+        <div class="card card-home-category">
+            <div class="row no-gutters">
+                <div class="col-md-3">
+
+                    <div class="home-category-banner bg-light-orange">
+                        <h5 class="title">Espresso</h5>
+                        <p>
+                            Đây là một loại cà phê nguyên chất. Espresso có hương vị đậm đà, đắng và hậu vị lâu.
+                            là một thức uống phổ biến và được yêu thích trên toàn thế giới.
+                        </p>
+                        @foreach (var item in Model.ListLoaiSP.Where(n => n.MaLoaiSP == 1))
+                        {
+
+
+                            <!--LoaiSP đầu tiên tên của hàm nằm trong file LoaiSPController, LoaiSP thứ hai là tên controller  -->
+                            <a href="@Url.Action("LoaiSP", "LoaiSP", new { @Id = item.MaLoaiSP })" class="btn btn-outline-primary rounded-pill">Đặt hàng ngay!</a>
+
+                        }
+                        <img src="~/Content/images/items/bacxiu.jpg" class="img-bg">
+                    </div>
+
+                </div> <!-- col.// -->
+                <div class="col-md-9">
+                    <ul class="row no-gutters bordered-cols">
+                        @foreach (var item in Model.ListSanPham.Where(n => n.MaLoaiSP == 1).Take(4))
+                        {
+                            <li class="col-6 col-lg-3 col-md-4">
+                                <a href="#" class="item">
+                                    <div class="card-body">
+                                        <figure class="card-product-grid card-sm">
+                                            <!--Tạo đường dẫn lấy id sản phẩm để sang trang detail-->
+                                            <a href="@Url.Action("Detail","Product",new {Id=item.MaSP })" class="img-wrap">
+                                                <img src="~/Content/images/items/@item.Anh">
+
+                                            </a>
+                                            <div class="text-wrap p-3">
+                                                <a href="@Url.Action("Detail","Product",new {Id=item.MaSP })" class="title">@item.TenSP</a>
+
+                                                    <div class="price mt-1">@item.Gia VNĐ</div>
+                                                    <a href="@Url.Action("Detail","Product",new {Id=item.MaSP })" class="btn btn-secondary btn-sm"> Mua ngay! </a>
+
+                                                </div>
+                                            </figure>
+                                        </div>
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </div> <!-- col.// -->
+                </div> <!-- row.// -->
+            </div> <!-- card.// -->
+        </section>
+        <div class="col-md-9">
+            <ul class="row no-gutters bordered-cols">
+                @foreach (var item in Model.ListSanPham.Where(n => n.MaLoaiSP == 1))
+                {
+                    <li class="col-6 col-lg-3 col-md-4">
+                        <a href="#" class="item">
+                            <div class="card-body">
+                                <figure class="card-product-grid card-sm">
+                                    <!--Tạo đường dẫn lấy id sản phẩm để sang trang detail-->
+                                    <a href="@Url.Action("Detail","Product",new {Id=item.MaSP })" class="img-wrap">
+                                        <img src="~/Content/images/items/@item.Anh">
+                                    </a>
+                                    <div class="text-wrap p-3">
+                                        <a href="@Url.Action("Detail","Product",new {Id=item.MaSP })" class="title">@item.TenSP</a>
+                                        
+                                        @*@Html.ActionLink(item.TenSP, "Detail", "Product", new { Id = item.TenSP })*@
+                                        <div class="price mt-1">@item.Gia VNĐ</div>
+                                        <a href="@Url.Action("Detail","Product",new {Id=item.MaSP })" class="btn btn-secondary btn-sm"> Mua ngay! </a>
+
+                                    </div>
+                            </figure>
+                        </div>
+                    </a>
+                     </li>
+                  }
+        </ul>
+    </div> <!-- col.// -->
+
+
+    <article class="my-4">
+        <img src="~/Content/images/banners/ad-sm.jpg" class="w-100">
+    </article>
+</div>
+<!-- container end.// -->
+

@@ -1,0 +1,100 @@
+﻿@model websitecoffeechoice.Models.NguoiDung
+
+@{
+    ViewBag.Title = "DangKy";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 style="text-align:center">Vui lòng đăng ký!</h2>
+
+@using (Html.BeginForm())
+
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <hr />
+
+        <div class="form-group">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            @*@Html.LabelFor(model => model.TenNguoiDung, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            Tên đăng nhập
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TenNguoiDung, new { htmlAttributes = new { @class = "form-control", @placeholder = "Username" } })
+                @Html.ValidationMessageFor(model => model.TenNguoiDung, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @*@Html.LabelFor(model => model.MatKhau, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Mật khẩu
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MatKhau, new { htmlAttributes = new { @class = "form-control", @type = "password", @placeholder = "Password" } })
+                @Html.ValidationMessageFor(model => model.MatKhau, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @*@Html.LabelFor(model => model.HoTenND, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Họ tên
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.HoTenND, new { htmlAttributes = new { @class = "form-control", @placeholder = "Họ và tên " } })
+                @Html.ValidationMessageFor(model => model.HoTenND, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Giới tính
+            @*@Html.LabelFor(model => model.GioiTinh, htmlAttributes: new { @class = "control-label col-md-2" })*@
+
+            <div class="col-md-10">
+                @*@Html.EditorFor(model => model.GioiTinh, new { htmlAttributes = new { @class = "form-control", @placeholder = "Giới tính" } })
+                    @Html.ValidationMessageFor(model => model.GioiTinh, "", new { @class = "text-danger" })*@
+                @Html.RadioButtonFor(model => model.GioiTinh, "Nam")Nam
+                @Html.RadioButtonFor(model => model.GioiTinh, "Nữ")Nữ
+
+                @Html.ValidationMessageFor(model => model.GioiTinh, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Địa chỉ
+            @*@Html.LabelFor(model => model.DiaChi, htmlAttributes: new { @class = "control-label col-md-2" })*@
+
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DiaChi, new { htmlAttributes = new { @class = "form-control", @placeholder = "Vui lòng nhập chính xác địa chỉ để giao hàng" } })
+                @Html.ValidationMessageFor(model => model.DiaChi, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Ngày sinh
+            @*@Html.LabelFor(model => model.NgaySinh, htmlAttributes: new { @class = "control-label col-md-2" })*@
+
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NgaySinh, new { htmlAttributes = new { @class = "form-control", @placeholder = " Ngày sinh" } })
+                @Html.ValidationMessageFor(model => model.NgaySinh, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Tạo tài khoản" class="btn btn-outline-primary rounded-pill" />
+            </div>
+        </div>
+    </div>
+}
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        <div class="btn btn-outline-primary rounded-pill">
+            @Html.ActionLink("<< Trở lại!", "DangNhap")
+        </div>
+    </div>
+</div>

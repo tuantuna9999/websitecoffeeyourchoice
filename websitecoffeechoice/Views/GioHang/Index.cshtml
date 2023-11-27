@@ -1,0 +1,114 @@
+﻿@model IEnumerable<websitecoffeechoice.Models.CartModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        // hàm xử lý sự kiện click vào phần tử có id là "removecart". Khi người dùng nhấp vào phần tử đó, hàm xử lý sự kiện này sẽ được thực thi.
+        $("#removecart").click(function () {
+            var model = {};//tạo biến tên model 
+            //lấy id sản phẩm ở hàng remove 
+            model.id = $("#productid").val();//id có thể đổi được ,Gán giá trị của phần tử có id là "productid" vào thuộc tính "id" của đối tượng "model
+
+
+            $.ajax({
+                type: "POST",//Xác định phương thức HTTP được sử dụng là POST.
+                url: '@Url.Action("Remove", "GioHang")',//tới controller giohang và thực hiện hàm remove 
+                data: JSON.stringify(model),//Chuyển đối tượng "model" thành chuỗi JSON và gửi nó dưới dạng dữ liệu yêu cầu.
+                dataType: "json",//Xác định kiểu dữ liệu mong đợi nhận lại từ phản hồi của yêu cầu là JSON.
+                contentType: "application/json; charset=utf-8",//Xác định kiểu dữ liệu của dữ liệu yêu cầu là JSON.
+                success: function () {
+
+                    $('#CartCount').text(@Session["count"] - 1);
+                    $("#product-" + model.id).remove();
+                },
+                error: function () {
+                    alert("Lỗi trong khi thêm vào giỏ hàng!");
+                }
+            });
+            return false;
+        });
+    });
+</script>
+
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-content padding-y">
+    <div class="container">
+
+        <div class="row">
+            <main class="col-md-9">
+                <div class="card">
+
+                    <table class="table table-borderless table-shopping-cart">
+                        <thead class="text-muted">
+                            <tr class="small text-uppercase">
+                                <th scope="col">Sản phẩm</th>
+                                <th scope="col" width="120">Số lượng</th>
+                                <th scope="col" width="120">Giá</th>
+                                <th scope="col" class="text-right" width="200"> </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                foreach (var item in Model)
+
+                                {
+                                    <tr id="product-@item.Product.MaSP">
+                                        <td>
+                                            <figure class="itemside">
+                                                <div class="aside"><img src="~/Content/images/items/@item.Product.Anh" class="img-sm"></div>
+                                                <figcaption class="info">
+                                                    <a href="#" class="title text-dark">@item.Product.TenSP</a>
+
+                                                </figcaption>
+                                            </figure>
+                                        </td>
+                                        <td>
+                                            <input type="text"   value="@item.Quantity" />
+                                            
+                                        </td>
+                                        <td>
+                                            <div class="price-wrap">
+                                                <var class="price">@item.Product.Gia VNĐ</var>
+
+                                            </div> <!-- price-wrap .// -->
+                                        </td>
+                                        <td class="text-right">
+                                            <input type="hidden" value="@item.Product.MaSP" id="productid" /><!--#productid khai báo trên javascript -->
+                                            <!--removecart là biến dùng trong đoạn javascript ở trên-->
+                                            <a href="" class="btn btn-light" id="removecart"> Xóa sản phẩm</a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <p>Không có sản phẩm trong giỏ hàng!</p>
+                            }
+
+
+                        </tbody>
+                    </table>
+
+                    <div class="card-body border-top">
+                        <a href="@Url.Action("Index","ThanhToan")" class="btn btn-primary float-md-right"> Thanh Toán > <i class="fa fa-chevron-right"></i> </a>
+                        <a href="@Url.Action("Index","Home")" class="btn btn-light"> <i class="fa fa-chevron-left"></i>< Tiếp tục mua sắm! </a>
+                    </div>
+                </div> <!-- card.// -->
+
+                <div class="alert alert-success mt-3">
+                    <p class="icontext"><i class="icon text-success fa fa-truck"></i> Free Delivery within 1-2 weeks</p>
+                </div>
+
+            </main> <!-- col.// -->
+
+        </div>
+
+    </div> <!-- container .//  -->
+</section>
+<!-- ========================= SECTION CONTENT END// ========================= -->

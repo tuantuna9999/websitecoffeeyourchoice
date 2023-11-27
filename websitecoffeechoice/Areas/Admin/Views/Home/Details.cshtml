@@ -1,0 +1,62 @@
+﻿@model websitecoffeechoice.Models.SanPham
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div style="text-align:center;font-size:150%; color:orange">Thông tin sản phẩm!</div>
+
+<div style="font-size:150%">
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Tên món ăn
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenSP)
+        </dd>
+
+
+
+        <dt>
+            Giá bán
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gia) VNĐ
+        </dd>
+
+        <dt>
+            Nhận xét
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GhiChu)
+        </dd>
+
+        <dt>
+            Ảnh
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Anh)
+        </dd>
+
+        <dt>
+            Loại sản phẩm
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LoaiSP.TenLoaiSP)
+        </dd>
+
+    </dl>
+</div>
+<div style="text-align:left;font-size:100%; color:orange">
+    @Html.ActionLink("Chỉnh sửa", "Edit", new { id = Model.MaSP }) |<br />
+    @Html.ActionLink("<< Trở lại trang chủ", "Index")
+
+</div>
